@@ -1,5 +1,7 @@
-import { getVisibleContacts } from './Redux/selectors';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectContacts } from './Redux/selectors';
+import { fetchContacts } from './Redux/operations';
 
 import { Container, Wrapper, Title, SubTitle } from './App.styled';
 import ContactForm from './ContactForm/ContactForm';
@@ -8,7 +10,12 @@ import Filter from './Filter/Filter';
 
 
 const App = () => {
-  const contacts = useSelector(getVisibleContacts);
+  const contacts = useSelector(selectContacts);
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    dispatch(fetchContacts())
+  },[dispatch])
 
   return (
     <Container>
